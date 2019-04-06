@@ -15,7 +15,7 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
-
+unsigned int is_textured = 0;
 
 
 int main()
@@ -59,8 +59,24 @@ int main()
 		//create vertexshader
 	Shader ourShader("src/shaders/basic.vs", "src/shaders/basic.fs", nullptr);
 
-	//texture #1
+	//default texture
+	unsigned int texture_0;
+	glGenTextures(1, &texture_0);
+	glBindTexture(GL_TEXTURE_2D, texture_0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int width, height, nrChannels;
+	unsigned char *data = stbi_load("res/white.png", &width, &height, &nrChannels, 0);
+	if (!data) {
+		std::cout << "Failed to load texture" << std::endl;
+	}
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(data);
 
+	//texture #1
 	unsigned int texture_wood;
 	glGenTextures(1, &texture_wood);
 	glBindTexture(GL_TEXTURE_2D, texture_wood);
@@ -68,8 +84,7 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	int width, height, nrChannels;
-	unsigned char *data = stbi_load("res/wood.jpg", &width, &height, &nrChannels, 0);
+	data = stbi_load("res/wood.jpg", &width, &height, &nrChannels, 0);
 	if (!data) {
 		std::cout << "Failed to load texture" << std::endl;
 	}
@@ -87,7 +102,6 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	data = stbi_load("res/grunge.jpg", &width, &height, &nrChannels, 0);
-
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(data);
@@ -120,8 +134,10 @@ int main()
 	float increment = 0.01f;
 
 	ourShader.use();
-	ourShader.setInt("texture_wood", 0);
-	ourShader.setInt("texture_grunge", 1);
+	ourShader.setInt("u_texture", 0);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture_0);
 
 	//Loop until user closes window
 	//-----------------------------
@@ -137,10 +153,23 @@ int main()
 		//---------
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture_wood);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, texture_grunge);
+		//texture
+
+		if (is_textured == 0)
+		{
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, texture_0);
+		}
+		if (is_textured == 1)
+		{
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, texture_wood);
+		}
+		if (is_textured == 2)
+		{
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, texture_grunge);
+		}
 
 
 		//camera
@@ -214,6 +243,10 @@ void processInput(GLFWwindow *window)
 		cameraPos += cameraUp *cameraSpeed;
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		cameraPos += cameraDown * cameraSpeed;
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+		is_textured = (is_textured + 1) % 3;
+
+	}
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

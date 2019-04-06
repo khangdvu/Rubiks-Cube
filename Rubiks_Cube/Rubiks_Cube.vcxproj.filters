@@ -401,5 +401,7 @@
   <ItemGroup>
     <Image Include="res\wood.jpg" />
     <Image Include="res\grunge.jpg" />
+    <Image Include="res\white.jpg" />
+    <Image Include="res\stone.jpg" />
   </ItemGroup>
 </Project>

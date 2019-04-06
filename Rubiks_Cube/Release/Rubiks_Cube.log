@@ -1,5 +1,4 @@
-﻿  glad.c
-  Application.cpp
+﻿  Application.cpp
 k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(30): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
@@ -7,12 +6,12 @@ k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(35): warning C4244: 'initializing
 k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(36): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(39): warning C4305: 'initializing': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(148): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(149): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(181): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  stb_image.cpp
-  glm.cpp
+k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(163): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(164): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(210): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Generating code
-  All 435 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  2 of 435 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Rubiks_Cube.vcxproj -> K:\OpenGL\Rubiks_Cube\Release\Rubiks_Cube.exe

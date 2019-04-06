@@ -513,6 +513,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\grunge.jpg" />
+    <Image Include="res\stone.jpg" />
+    <Image Include="res\white.jpg" />
     <Image Include="res\wood.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

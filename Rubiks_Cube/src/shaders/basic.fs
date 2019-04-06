@@ -5,10 +5,10 @@ out vec4 color;
 in vec2 TexCoord;
 in vec3 faceColor;
 
-uniform sampler2D texture_wood;
-uniform sampler2D texture_grunge;
+uniform sampler2D u_texture;
+
 
 
 void main() {
-	color = vec4(faceColor, 1.0f);
+	color = texture(u_texture,TexCoord) * vec4(faceColor, 1.0f);
 }
