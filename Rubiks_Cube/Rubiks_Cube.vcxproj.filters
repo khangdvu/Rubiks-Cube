@@ -403,5 +403,6 @@
     <Image Include="res\grunge.jpg" />
     <Image Include="res\white.jpg" />
     <Image Include="res\stone.jpg" />
+    <Image Include="res\white.png" />
   </ItemGroup>
 </Project>
