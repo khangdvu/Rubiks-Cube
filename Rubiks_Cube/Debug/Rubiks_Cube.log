@@ -1,13 +1,13 @@
 ﻿  Application.cpp
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(30): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(35): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(36): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(39): warning C4305: 'initializing': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(177): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(178): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(210): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Rubiks_Cube.vcxproj -> K:\OpenGL\Rubiks_Cube\Debug\Rubiks_Cube.exe
-  Rubiks_Cube.vcxproj -> K:\OpenGL\Rubiks_Cube\Debug\Rubiks_Cube.pdb (Partial -> Full PDB)
+k:\opengl\rubiks_cube\rubiks_cube\src\cube_vertices.h(276): warning C4305: 'initializing': truncation from 'double' to 'float'
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(20): error C2144: syntax error: 'float' should be preceded by ';'
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(20): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(39): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(44): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(45): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(47): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(49): warning C4305: 'initializing': truncation from 'double' to 'float'
+k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(28): warning C4305: 'initializing': truncation from 'double' to 'float'
+k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(231): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data

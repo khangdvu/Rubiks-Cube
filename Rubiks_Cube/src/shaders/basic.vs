@@ -9,11 +9,12 @@ out	vec3 faceColor;
 
 uniform mat4 model;
 uniform mat4 view;
-uniform mat4 projection;
 
+uniform mat4 projection;
+uniform mat4 transform;
 
 void main(){
-	gl_Position = projection * view * model * position;
+	gl_Position =  projection *  view * view2*model * transform*position;
 	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
 	faceColor = fColor;
 }

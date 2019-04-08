@@ -1,23 +1,31 @@
+
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <iostream>
 #include "shader_s.h"
 #include "stb_image.h"
+
 #include "cube_vertices.h"
 #include "camera.h"
+
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/string_cast.hpp>
+
+
 //FUNCTION DECLARATIONS
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
-
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 unsigned int is_textured = 0;
 
-
+#define M_PI 3.14159265358979323846264338327950
+static const float deg2rad = M_PI / 180.0;
 int main()
 {
 
@@ -40,9 +48,11 @@ int main()
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	glfwSetCursorPosCallback(window, mouse_callback);
+	//glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
 
+	glfwSetKeyCallback(window, key_callback);
 	//Load GLAD
 	//---------
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -115,9 +125,9 @@ int main()
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_DYNAMIC_DRAW);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	// position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
@@ -153,8 +163,8 @@ int main()
 		//---------
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//texture
 
+		//texture
 		if (is_textured == 0)
 		{
 			glActiveTexture(GL_TEXTURE0);
@@ -173,18 +183,13 @@ int main()
 
 
 		//camera
-		float radius = 10.0f;
-		float camX = sin(glfwGetTime()) * radius;
-		float camZ = cos(glfwGetTime()) * radius;
+
 		glm::mat4 view;
-		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		view = glm::lookAt(cameraFront +cameraPos, cameraFront , cameraFront +cameraUp);
 
 		// create transformations
 		glm::mat4 model = glm::mat4(1.0f);
-		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 
-		//glm::mat4 view = glm::mat4(1.0f);
-		//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
 		glm::mat4 projection;
 		projection = glm::perspective(glm::radians(45.0f), (float)(800 / 800), 0.1f, 100.0f);
@@ -204,13 +209,29 @@ int main()
 
 		
 			//draw
+
 		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6*9*6, GL_UNSIGNED_INT, nullptr );
+
+		unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(rot_mat));
+		
+
+
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
+		
+		//glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_DYNAMIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * 6 * 9 * 2 * 3, cube_indices, GL_STATIC_DRAW);
+		glBindVertexArray(VAO);
+		glDrawElements(GL_TRIANGLES, 6*9*3*2 , GL_UNSIGNED_INT, nullptr);
+												//6faces 9squares 3vertices 2triangles
 
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
 
 		//check and call events and swap the buffers
 		//------------------------------------------
@@ -228,24 +249,67 @@ int main()
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow *window)
 {
+
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
-	float cameraSpeed = 2.5f * deltaTime;; // adjust accordingly
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		cameraPos += cameraSpeed * cameraFront;
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		cameraPos -= cameraSpeed * cameraFront;
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		cameraPos += cameraUp *cameraSpeed;
-	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-		cameraPos += cameraDown * cameraSpeed;
+	float cameraSpeed = 2.5f * deltaTime; // adjust accordingly
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+
+		camera_rot_mat = glm::rotate(identity, glm::degrees(rot_angle), cameraTan);
+		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos ;
+		cameraPos =	glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
+		cameraUp += glm::mat3(camera_rot_mat)*cameraSpeed * cameraUp;
+		cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
+		//std::cout << "Postion " << glm::to_string(cameraPos) << "Front " << glm::to_string(cameraFront) << "Up " << glm::to_string(cameraUp) << "\n"
+		//	<< std::endl;
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		camera_rot_mat = glm::rotate(identity, glm::degrees(-rot_angle), cameraTan);
+		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
+		cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
+		cameraUp += glm::mat3(camera_rot_mat)*cameraSpeed * cameraUp;
+		cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
+		cameraUp = glm::mat3(trans_cam_mat) * glm::normalize(cameraUp);
+		cameraTan = glm::mat3(trans_cam_mat) *glm::normalize(cameraTan);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+		camera_rot_mat = glm::rotate(identity, glm::degrees(rot_angle), cameraUp);
+		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
+		cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
+		cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
+		cameraTan = glm::mat3(trans_cam_mat) *glm::normalize(cameraTan);
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+		camera_rot_mat = glm::rotate(identity, glm::degrees(-rot_angle), cameraUp);
+		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
+		cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
+		cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
+		cameraTan = glm::mat3(trans_cam_mat) * glm::normalize(cameraTan);
+	}
+
+
+}
+
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
 	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
 		is_textured = (is_textured + 1) % 3;
+	}
+	rot_angle = 90.0f;
 
+	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
+		animate_rotate_yellowi();
+		//rot_mat = glm::rotate(identity, glm::radians(90.0f * deg2rad), glm::vec3(0.0f, 1.0f, 1.0f));
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+		rot_mat = glm::rotate(identity, glm::radians(90.0f * deg2rad), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
 }
 

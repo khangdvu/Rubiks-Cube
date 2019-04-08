@@ -6,14 +6,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\Khangster\Downloads\glad.c">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="vendor\glm\detail\glm.cpp" />
     <ClCompile Include="src\Application.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\stb_image.cpp" />
+    <ClCompile Include="vendor\glad.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\glm\detail\_features.hpp" />
