@@ -184,7 +184,7 @@ int main()
 		//camera
 
 		glm::mat4 view;
-		view = glm::lookAt(cameraFront +cameraPos, cameraFront , cameraFront +cameraUp);
+		view = glm::lookAt(cameraPos, cameraFront , cameraUp);
 
 		// create transformations
 		glm::mat4 model = glm::mat4(1.0f);
@@ -206,8 +206,10 @@ int main()
 
 		glBindVertexArray(VAO);
 
-		unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
+		unsigned int piece_rotationLoc = glGetUniformLocation(ourShader.ID, "piece_rotation");
+		glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(piece_rotation));
+		unsigned int camera_rotationLoc = glGetUniformLocation(ourShader.ID, "camera_rotation");
+		glUniformMatrix4fv(camera_rotationLoc, 1, GL_FALSE, glm::value_ptr(camera_rotation));
 		
 
 
@@ -226,11 +228,11 @@ int main()
 				glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
 
 				if (is_rotated[i][j][k] == true) {
-					glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));					
+					glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(piece_rotation));
 				}
 				if (is_rotated[i][j][k] == false) {
-					glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
-	
+					//glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
+					glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(identity));
 				}
 				//draw call
 					glDrawElements(GL_TRIANGLES, 3 * 2, GL_UNSIGNED_INT, nullptr);
@@ -267,50 +269,50 @@ int main()
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow *window)
 {
-
+	float rot_angle = 10.0f;
+	float rot_inc = 0.001f;
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 	float cameraSpeed = 2.5f * deltaTime; // adjust accordingly
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-
-		camera_rot_mat = glm::rotate(identity, glm::degrees(rot_angle), cameraTan);
-		cameraPos += glm::mat3(camera_rot_mat)	*	cameraSpeed	* cameraPos ;
-		cameraPos =	glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
+		camera_rotation = glm::rotate(camera_rotation, rot_inc, glm::vec3(1.0f, 0.0f, 0.0f));
+		//camera_rot_mat = glm::rotate(identity, glm::degrees(rot_angle), glm::vec3(1.0f, 0.0f, 0.0f));
+		//cameraPos += glm::mat3(camera_rot_mat)	*	cameraSpeed	* cameraPos ;
+		//cameraPos =	glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
 		//cameraUp += glm::mat3(camera_rot_mat)	*	cameraSpeed * cameraUp;
-		//cameraTan += glm::mat3(camera_rot_mat)	*	cameraSpeed * cameraTan;
-		//std::cout << "Postion " << glm::to_string(cameraPos) << "Front " << glm::to_string(cameraFront) << "Up " << glm::to_string(cameraUp) << "\n"
-		//	<< std::endl;
+
+
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-		camera_rot_mat = glm::rotate(identity, glm::degrees(-rot_angle), cameraTan);
-		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
-		cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
+		camera_rotation = glm::rotate(camera_rotation, -rot_inc, glm::vec3(1.0f, 0.0f, 0.0f));
+		//camera_rot_mat = glm::rotate(identity, glm::degrees(-rot_angle), glm::vec3(1.0f, 0.0f, 0.0f));
+		//cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
+		//cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
 		//cameraUp += glm::mat3(camera_rot_mat)*cameraSpeed * cameraUp;
-		//cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
-		//cameraUp = glm::mat3(trans_cam_mat) * glm::normalize(cameraUp);
-		//cameraTan = glm::mat3(trans_cam_mat) *glm::normalize(cameraTan);
+
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-		camera_rot_mat = glm::rotate(identity, glm::degrees(rot_angle), cameraUp);
-		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
-		cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
-		//cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
-		//cameraTan = glm::mat3(trans_cam_mat) *glm::normalize(cameraTan);
+		camera_rotation = glm::rotate(camera_rotation, rot_inc, glm::vec3(0.0f, 1.0f, 0.0f));
+		//camera_rot_mat = glm::rotate(identity, glm::degrees(rot_angle), glm::vec3(0.0f, 1.0f, 0.0f));
+		//cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
+		//cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
+		//cameraUp += glm::mat3(camera_rot_mat)*cameraSpeed * cameraUp;
+
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-		camera_rot_mat = glm::rotate(identity, glm::degrees(-rot_angle), cameraUp);
+		camera_rotation = glm::rotate(camera_rotation, -rot_inc, glm::vec3(0.0f, 1.0f, 0.0f));
 		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
 		cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
-		//cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
-		//cameraTan = glm::mat3(trans_cam_mat) * glm::normalize(cameraTan);
+		cameraUp += glm::mat3(camera_rot_mat)*cameraSpeed * cameraUp;
+
 	}
 	if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
 		while (!_rotating) {
 			_rotating = true;
 
 			animate_rotate_yellowi();
-			trans = identity;
+			piece_rotation = identity;
 		}
 		if (glfwGetKey(window, GLFW_KEY_X) == GLFW_RELEASE) {
 			_rotating = false;
@@ -324,7 +326,7 @@ void processInput(GLFWwindow *window)
 			_rotating = true;
 
 			animate_rotate_whitei();
-			trans = identity;
+			piece_rotation = identity;
 		}
 		if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_RELEASE) {
 			_rotating = false;
@@ -333,8 +335,8 @@ void processInput(GLFWwindow *window)
 	}
 	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
 		animate_rotate_redi();
-		trans = identity;
-		trans = glm::rotate(trans, glm::degrees(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		piece_rotation = identity;
+		piece_rotation = glm::rotate(piece_rotation, glm::degrees(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 }
 
@@ -344,7 +346,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
 		is_textured = (is_textured + 1) % 3;
 	}
-	rot_angle = 90.0f;
+
 
 	//if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
 	//

@@ -1,12 +1,13 @@
 ﻿  Application.cpp
 k:\opengl\rubiks_cube\rubiks_cube\src\cube_vertices.h(286): warning C4305: 'initializing': truncation from 'double' to 'float'
 k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(12): warning C4305: 'initializing': truncation from 'double' to 'float'
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(41): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(42): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(46): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(47): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(48): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(50): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(52): warning C4305: 'initializing': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(249): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(51): warning C4305: 'initializing': truncation from 'double' to 'float'
+k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(251): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Rubiks_Cube.vcxproj -> K:\OpenGL\Rubiks_Cube\Debug\Rubiks_Cube.exe
