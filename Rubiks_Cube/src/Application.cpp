@@ -227,12 +227,11 @@ int main()
 				if (is_rotated[i][j][k] == true) {
 					glm::mat4 trans = glm::mat4(1.0f);
 					trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
-					glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(rot_mat));					
+					glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));					
 				}
 				if (is_rotated[i][j][k] == false) {
 					glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
-					
-					
+	
 				}
 				//draw call
 					glDrawElements(GL_TRIANGLES, 3 * 2, GL_UNSIGNED_INT, nullptr);
@@ -276,10 +275,10 @@ void processInput(GLFWwindow *window)
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 
 		camera_rot_mat = glm::rotate(identity, glm::degrees(rot_angle), cameraTan);
-		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos ;
+		cameraPos += glm::mat3(camera_rot_mat)	*	cameraSpeed	* cameraPos ;
 		cameraPos =	glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
-		cameraUp += glm::mat3(camera_rot_mat)*cameraSpeed * cameraUp;
-		cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
+		cameraUp += glm::mat3(camera_rot_mat)	*	cameraSpeed * cameraUp;
+		cameraTan += glm::mat3(camera_rot_mat)	*	cameraSpeed * cameraTan;
 		//std::cout << "Postion " << glm::to_string(cameraPos) << "Front " << glm::to_string(cameraFront) << "Up " << glm::to_string(cameraUp) << "\n"
 		//	<< std::endl;
 	}

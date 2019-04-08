@@ -187,7 +187,7 @@ float positions[6][3][3][8*4] = {
 
 {		//x							//y					//z				//texture coords		//Color							//BACK GREEN FACE
 	{
-		{	-0.1f					  ,	0.1f			  ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//centre
+	{	-0.1f					  ,	0.1f			  ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//centre
 	 0.1f					  ,	0.1f			  ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
 	 0.1f					  ,	-0.1f			  ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
 	-0.1f					  ,	-0.1f			  ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },			//
@@ -215,18 +215,20 @@ float positions[6][3][3][8*4] = {
 	-(0.3f + outline)		  , (0.1f + outline)  ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },
 	},
 	{//
-	{(0.1f + outline)		  , (0.3f + outline)  ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//up right
+				{(0.1f + outline)		  , (0.3f + outline)  ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//up right
 	(0.3f + outline)		  , (0.3f + outline)  ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
 	(0.3f + outline)		  , (0.1f + outline)  ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	(0.1f + outline)		  , (0.1f + outline)  ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },				//
+	(0.1f + outline)		  , (0.1f + outline)  ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },
+			//
 	 {-(0.3f + outline)		  , -(0.1f + outline) ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//down left
 	-(0.1f + outline)		  , -(0.1f + outline) ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
 	-(0.1f + outline)		  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	-(0.3f + outline)		  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },				//
-	{(0.1f + outline)		  , -(0.1f + outline) ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//down right
+	-(0.3f + outline)		  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },	
+			{(0.1f + outline)		  , -(0.1f + outline) ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//down right
 	(0.3f + outline)		  , -(0.1f + outline) ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
 	(0.3f + outline)		  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	(0.1f + outline)		  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },
+	(0.1f + outline)		  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },	//
+
 	}//
 },
 {		//x							//y					//z				//texture coords			//colour						//TOP PURPLE FACE
