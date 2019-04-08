@@ -4,6 +4,7 @@
 
 float outline = 0.005f;
 unsigned int i = 36;
+bool is_rotated[6][3][3];
 
 float positions[6][3][3][8*4] = {
 	{	//x							//y					//z				//texture coords			//colour						//FRONT BLUE FACE
@@ -275,6 +276,10 @@ float positions[6][3][3][8*4] = {
 }
 };
 
+unsigned single_cube_indices[6 * 2] = {
+	0			,	1				,	2		   ,
+	2			,	3				,	0		   
+};
 unsigned int cube_indices[6 * 9 * 6] =
 {
 	0			,	1				,	2		   ,
@@ -387,39 +392,5 @@ unsigned int cube_indices[6 * 9 * 6] =
 	34 + (i *5)			,	35 + (i *5)				,	32 + (i *5)		   ,
 };
 
-void animate_rotate_yellowi() {
-	std::cout << "rotate yellowi\n";
-	//cubik temp0 = arr[0][0][2];
-	//cubik temp1 = arr[0][1][2];
-	//cubik temp2 = arr[0][2][2];
-	float temp0[32];
-	float temp1[32];
-	float temp2[32];
-	std::memcpy(temp0, positions[0][0][2], sizeof(float) * 32);
-	std::memcpy(temp1, positions[0][1][2], sizeof(float) * 32);
-	std::memcpy(temp2, positions[0][2][2], sizeof(float) * 32);
-	for (int i = 0; i < 3; i++) {
-		std::memcpy(positions[0][i][2], positions[5][i][2], sizeof(float) * 32);
-		//arr[0][i][2] = arr[5][i][2];
-	}
-	//
-	for (int i = 0; i < 3; i++) {
-		std::memcpy(positions[5][i][2], positions[4][i][2], sizeof(float) * 32);
-		//arr[5][i][2] = arr[4][i][2];
-	}
-	
-	for (int i = 0; i < 3; i++) {
-		std::memcpy(positions[4][i][2], positions[2][i][2], sizeof(float) * 32);
-	//	arr[4][i][2] = arr[2][i][2];
-	}
-	//
-	std::memcpy(positions[2][0][2], temp0, sizeof(float) * 32);
-	std::memcpy(positions[2][1][2], temp1, sizeof(float) * 32);
-	std::memcpy(positions[2][2][2], temp2, sizeof(float) * 32);
-	//arr[2][0][2] = temp0;
-	//arr[2][1][2] = temp1;
-	//arr[2][2][2] = temp2;
-	//cubik temp = arr[1][0][0];
-	//rotate_matrixi(3);
-}
+
 #endif

@@ -7,6 +7,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+
+#define M_PI 3.14159265358979323846264338327950
+static const float deg2rad = M_PI / 180.0;
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 float deltaTime = 0.0f;	// Time between current frame and last frame

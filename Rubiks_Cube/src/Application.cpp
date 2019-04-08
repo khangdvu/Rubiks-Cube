@@ -6,7 +6,7 @@
 #include <iostream>
 #include "shader_s.h"
 #include "stb_image.h"
-
+#include "cube_animation.h"
 #include "cube_vertices.h"
 #include "camera.h"
 
@@ -24,8 +24,7 @@ void processInput(GLFWwindow *window);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 unsigned int is_textured = 0;
 
-#define M_PI 3.14159265358979323846264338327950
-static const float deg2rad = M_PI / 180.0;
+
 int main()
 {
 
@@ -49,8 +48,8 @@ int main()
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	//glfwSetCursorPosCallback(window, mouse_callback);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	//glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
 
 	glfwSetKeyCallback(window, key_callback);
 	//Load GLAD
@@ -117,31 +116,31 @@ int main()
 	stbi_image_free(data);
 
 		//create VBO, VAO and EBO
-	unsigned int VBO, VAO, EBO;
+	unsigned int VBO[6][3][3];
+	unsigned int VAO, EBO;
+
 	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
-	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
 	glBindVertexArray(VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_DYNAMIC_DRAW);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3*sizeof(float)));
 	glEnableVertexAttribArray(1);
-
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
-	//testing uniforms
-	float r = 0.1f;
-	float increment = 0.01f;
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < 3; j++) {
+			for (int k = 0; k < 3; k++) {
+				glGenBuffers(1, &VBO[i][j][k]);
+				glBindBuffer(GL_ARRAY_BUFFER, VBO[i][j][k]);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8 * 4, positions[i][j][k], GL_STATIC_DRAW);
+
+			}
+		}
+	}
+
+	glGenBuffers(1, &EBO);
+	   	 
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(single_cube_indices), single_cube_indices, GL_STATIC_DRAW);
+
 
 	ourShader.use();
 	ourShader.setInt("u_texture", 0);
@@ -205,33 +204,53 @@ int main()
 		unsigned int projectionLoc = glGetUniformLocation(ourShader.ID, "projection");
 		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-		
-
-		
-			//draw
-
 		glBindVertexArray(VAO);
 
 		unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(rot_mat));
-		
-
-
 		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
 		
-		//glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_DYNAMIC_DRAW);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * 6 * 9 * 2 * 3, cube_indices, GL_STATIC_DRAW);
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6*9*3*2 , GL_UNSIGNED_INT, nullptr);
-												//6faces 9squares 3vertices 2triangles
+
+
+		
+		
+
+
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 3; j++) {
+				for (int k = 0; k < 3; k++) {
+
+				glBindBuffer(GL_ARRAY_BUFFER, VBO[i][j][k]);
+				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+				glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+				glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
+
+				if (is_rotated[i][j][k] == true) {
+					glm::mat4 trans = glm::mat4(1.0f);
+					trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
+					glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(rot_mat));					
+				}
+				if (is_rotated[i][j][k] == false) {
+					glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
+					
+					
+				}
+				//draw call
+					glDrawElements(GL_TRIANGLES, 3 * 2, GL_UNSIGNED_INT, nullptr);
+				}
+			}
+		}					
+		
+
+
+		
+
+
+
+
 
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
 
 		//check and call events and swap the buffers
 		//------------------------------------------
@@ -244,6 +263,7 @@ int main()
 	glfwTerminate();
 	return 0;
 }
+
 
 // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
 // ---------------------------------------------------------------------------------------------------------
@@ -287,7 +307,10 @@ void processInput(GLFWwindow *window)
 		cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
 		cameraTan = glm::mat3(trans_cam_mat) * glm::normalize(cameraTan);
 	}
-
+	if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
+		animate_rotate_yellowi();
+		rot_mat = glm::rotate(identity, glm::radians(59.0f * deg2rad), glm::vec3(1.0f, 0.0f, 0.0f));
+	} 
 
 }
 
@@ -303,10 +326,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	}
 
-	if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
-		animate_rotate_yellowi();
-		//rot_mat = glm::rotate(identity, glm::radians(90.0f * deg2rad), glm::vec3(0.0f, 1.0f, 1.0f));
-	}
+	//if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
+	//	animate_rotate_yellowi();
+	//	rot_mat = glm::rotate(identity, glm::radians(90.0f * deg2rad), glm::vec3(1.0f, 0.0f, 0.0f));
+	//     }
 
 	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
 		rot_mat = glm::rotate(identity, glm::radians(90.0f * deg2rad), glm::vec3(0.0f, 0.0f, 1.0f));

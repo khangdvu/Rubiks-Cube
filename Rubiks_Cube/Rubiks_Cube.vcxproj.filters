@@ -259,6 +259,7 @@
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\cube_vertices.h" />
     <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\cube_animation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\glm\detail\func_common.inl" />
