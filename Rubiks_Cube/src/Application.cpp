@@ -220,13 +220,12 @@ int main()
 				for (int k = 0; k < 3; k++) {
 
 				glBindBuffer(GL_ARRAY_BUFFER, VBO[i][j][k]);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8 * 4, positions[i][j][k], GL_DYNAMIC_DRAW);
 				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 				glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 				glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
 
 				if (is_rotated[i][j][k] == true) {
-					glm::mat4 trans = glm::mat4(1.0f);
-					trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
 					glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));					
 				}
 				if (is_rotated[i][j][k] == false) {
@@ -277,8 +276,8 @@ void processInput(GLFWwindow *window)
 		camera_rot_mat = glm::rotate(identity, glm::degrees(rot_angle), cameraTan);
 		cameraPos += glm::mat3(camera_rot_mat)	*	cameraSpeed	* cameraPos ;
 		cameraPos =	glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
-		cameraUp += glm::mat3(camera_rot_mat)	*	cameraSpeed * cameraUp;
-		cameraTan += glm::mat3(camera_rot_mat)	*	cameraSpeed * cameraTan;
+		//cameraUp += glm::mat3(camera_rot_mat)	*	cameraSpeed * cameraUp;
+		//cameraTan += glm::mat3(camera_rot_mat)	*	cameraSpeed * cameraTan;
 		//std::cout << "Postion " << glm::to_string(cameraPos) << "Front " << glm::to_string(cameraFront) << "Up " << glm::to_string(cameraUp) << "\n"
 		//	<< std::endl;
 	}
@@ -286,31 +285,57 @@ void processInput(GLFWwindow *window)
 		camera_rot_mat = glm::rotate(identity, glm::degrees(-rot_angle), cameraTan);
 		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
 		cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
-		cameraUp += glm::mat3(camera_rot_mat)*cameraSpeed * cameraUp;
-		cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
-		cameraUp = glm::mat3(trans_cam_mat) * glm::normalize(cameraUp);
-		cameraTan = glm::mat3(trans_cam_mat) *glm::normalize(cameraTan);
+		//cameraUp += glm::mat3(camera_rot_mat)*cameraSpeed * cameraUp;
+		//cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
+		//cameraUp = glm::mat3(trans_cam_mat) * glm::normalize(cameraUp);
+		//cameraTan = glm::mat3(trans_cam_mat) *glm::normalize(cameraTan);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
 		camera_rot_mat = glm::rotate(identity, glm::degrees(rot_angle), cameraUp);
 		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
 		cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
-		cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
-		cameraTan = glm::mat3(trans_cam_mat) *glm::normalize(cameraTan);
+		//cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
+		//cameraTan = glm::mat3(trans_cam_mat) *glm::normalize(cameraTan);
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
 		camera_rot_mat = glm::rotate(identity, glm::degrees(-rot_angle), cameraUp);
 		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
 		cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
-		cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
-		cameraTan = glm::mat3(trans_cam_mat) * glm::normalize(cameraTan);
+		//cameraTan += glm::mat3(camera_rot_mat)*cameraSpeed * cameraTan;
+		//cameraTan = glm::mat3(trans_cam_mat) * glm::normalize(cameraTan);
 	}
 	if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
-		animate_rotate_yellowi();
-		rot_mat = glm::rotate(identity, glm::radians(59.0f * deg2rad), glm::vec3(1.0f, 0.0f, 0.0f));
+		while (!_rotating) {
+			_rotating = true;
+
+			animate_rotate_yellowi();
+			trans = identity;
+		}
+		if (glfwGetKey(window, GLFW_KEY_X) == GLFW_RELEASE) {
+			_rotating = false;
+			std::cout << "X Released \n" << std::endl;
+		}
+		//trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
 	} 
 
+	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+		while (!_rotating) {
+			_rotating = true;
+
+			animate_rotate_whitei();
+			trans = identity;
+		}
+		if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_RELEASE) {
+			_rotating = false;
+			std::cout << "Z Released \n" << std::endl;
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+		animate_rotate_redi();
+		trans = identity;
+		trans = glm::rotate(trans, glm::degrees(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	}
 }
 
 
@@ -321,18 +346,18 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	rot_angle = 90.0f;
 
-	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
-
-	}
+	//if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+	//
+	//}
 
 	//if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
 	//	animate_rotate_yellowi();
 	//	rot_mat = glm::rotate(identity, glm::radians(90.0f * deg2rad), glm::vec3(1.0f, 0.0f, 0.0f));
 	//     }
 
-	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
-		rot_mat = glm::rotate(identity, glm::radians(90.0f * deg2rad), glm::vec3(0.0f, 0.0f, 1.0f));
-	}
+	//if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+	//	rot_mat = glm::rotate(identity, glm::radians(90.0f * deg2rad), glm::vec3(0.0f, 0.0f, 1.0f));
+	//}
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

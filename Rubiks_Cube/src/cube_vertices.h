@@ -6,7 +6,7 @@ float outline = 0.005f;
 unsigned int i = 36;
 bool is_rotated[6][3][3];
 
-float positions[6][3][3][8*4] = {
+float positions[6][3][3][8 * 4] = {
 	{	//x							//y					//z				//texture coords			//colour						//FRONT BLUE FACE
 		{
 	{-(0.3f + outline)		  , (0.3f + outline)  , 0.3f + outline ,	1.0f, 1.0f,				0.1, 0.67f, 1.0f,					//up left
@@ -34,7 +34,7 @@ float positions[6][3][3][8*4] = {
 	{(0.1f + outline)		  , 0.1f			  , 0.3f + outline ,	1.0f, 1.0f,				0.1, 0.67f, 1.0f,					//right
 	(0.3f + outline)		  , 0.1f			  , 0.3f + outline ,	1.0f, 0.0f,				0.1, 0.67f, 1.0f,					//
 	(0.3f + outline)		  ,-0.1f			  , 0.3f + outline ,	0.0f, 0.0f,				0.1, 0.67f, 1.0f,					//
-	(0.1f + outline)		  ,-0.1f			  , 0.3f + outline ,	0.0f, 1.0f,				0.1, 0.67f, 1.0f,},	
+	(0.1f + outline)		  ,-0.1f			  , 0.3f + outline ,	0.0f, 1.0f,				0.1, 0.67f, 1.0f,},
 },
 {
 	{-(0.3f + outline)		  , -(0.1f + outline) , 0.3f + outline ,	1.0f, 1.0f,				0.1, 0.67f, 1.0f,					//down left
@@ -142,137 +142,144 @@ float positions[6][3][3][8*4] = {
 
 {	//x							//y					//z				//texture coords			//colour					//RIGHT YELLOW FACE
 	{
-		{0.3f + outline ,	-0.1f					 ,	0.1f			   , 	1.0f, 1.0f,				1.0f, 1.0f, 0.6f,			//centre
-	0.3f + outline ,	 0.1f					 ,	0.1f			   , 	1.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,	 0.1f					 ,	-0.1f			   , 	0.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,	-0.1f					 ,	-0.1f			   , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },			//
+		{0.3f + outline ,	-(0.3f + outline)		 , (0.3f + outline)   , 	1.0f, 1.0f,				1.0f, 1.0f, 0.6f,			//up left
+	0.3f + outline ,	-(0.1f + outline)		 , (0.3f + outline)   , 	1.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
+	0.3f + outline ,	-(0.1f + outline)		 , (0.1f + outline)   , 	0.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
+	0.3f + outline ,	-(0.3f + outline)		 , (0.1f + outline)   , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },
+	{0.3f + outline ,	-0.1f					 , (0.3f + outline)   , 	1.0f, 1.0f,				1.0f, 1.0f, 0.6f,			//up
+	0.3f + outline ,	 0.1f					 , (0.3f + outline)   , 	1.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
+	0.3f + outline ,	 0.1f					 , (0.1f + outline)   , 	0.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
+	0.3f + outline ,	-0.1f					 , (0.1f + outline)   , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },
+	{	0.3f + outline ,	(0.1f + outline)		 , (0.3f + outline)   , 	1.0f, 1.0f,				1.0f, 1.0f, 0.6f,			//up right
+	0.3f + outline ,	(0.3f + outline)		 , (0.3f + outline)   , 	1.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
+	0.3f + outline ,	(0.3f + outline)		 , (0.1f + outline)   , 	0.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
+	0.3f + outline ,	(0.1f + outline)		 , (0.1f + outline)   , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },			//
+	},
+	{//
 	{	0.3f + outline ,   -(0.3f + outline)		 , 0.1f			   , 	1.0f, 1.0f,					1.0f, 1.0f, 0.6f,			//left
 	0.3f + outline ,   -(0.1f + outline)		 , 0.1f			   , 	1.0f, 0.0f,					1.0f, 1.0f, 0.6f,			//
 	0.3f + outline ,   -(0.1f + outline)		 ,-0.1f			   , 	0.0f, 0.0f,					1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,   -(0.3f + outline)		 ,-0.1f			   , 	0.0f, 1.0f,					1.0f, 1.0f, 0.6f, },			//
-	{	0.3f + outline ,	(0.1f + outline)		 , 0.1f			   , 	1.0f, 1.0f,					1.0f, 1.0f, 0.6f,			//right
-	0.3f + outline ,	(0.3f + outline)		 , 0.1f			   , 	1.0f, 0.0f,					1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,	(0.3f + outline)		 ,-0.1f			   , 	0.0f, 0.0f,					1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,	(0.1f + outline)		 ,-0.1f			   , 	0.0f, 1.0f,					1.0f, 1.0f, 0.6f, },
-	},
-	{//
+	0.3f + outline ,   -(0.3f + outline)		 ,-0.1f			   , 	0.0f, 1.0f,					1.0f, 1.0f, 0.6f, },
 	{0.3f + outline ,	-0.1f					 , -(0.1f + outline)  , 	1.0f, 1.0f,				1.0f, 1.0f, 0.6f,			//down
 	0.3f + outline ,	 0.1f					 , -(0.1f + outline)  , 	1.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
 	0.3f + outline ,	 0.1f					 , -(0.3f + outline)  , 	0.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
 	0.3f + outline ,	-0.1f					 , -(0.3f + outline)  , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },		//
-	{0.3f + outline ,	-0.1f					 , (0.3f + outline)   , 	1.0f, 1.0f,				1.0f, 1.0f, 0.6f,			//up
-	0.3f + outline ,	 0.1f					 , (0.3f + outline)   , 	1.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,	 0.1f					 , (0.1f + outline)   , 	0.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,	-0.1f					 , (0.1f + outline)   , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },			//
-{0.3f + outline ,	-(0.3f + outline)		 , (0.3f + outline)   , 	1.0f, 1.0f,				1.0f, 1.0f, 0.6f,			//up left
-	0.3f + outline ,	-(0.1f + outline)		 , (0.3f + outline)   , 	1.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,	-(0.1f + outline)		 , (0.1f + outline)   , 	0.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,	-(0.3f + outline)		 , (0.1f + outline)   , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },
+		{	0.3f + outline ,	(0.1f + outline)		 , 0.1f			   , 	1.0f, 1.0f,					1.0f, 1.0f, 0.6f,			//right
+	0.3f + outline ,	(0.3f + outline)		 , 0.1f			   , 	1.0f, 0.0f,					1.0f, 1.0f, 0.6f,			//
+	0.3f + outline ,	(0.3f + outline)		 ,-0.1f			   , 	0.0f, 0.0f,					1.0f, 1.0f, 0.6f,			//
+	0.3f + outline ,	(0.1f + outline)		 ,-0.1f			   , 	0.0f, 1.0f,					1.0f, 1.0f, 0.6f, },
+//
+
 	},
 	{//
-{	0.3f + outline ,	(0.1f + outline)		 , (0.3f + outline)   , 	1.0f, 1.0f,				1.0f, 1.0f, 0.6f,			//up right
-	0.3f + outline ,	(0.3f + outline)		 , (0.3f + outline)   , 	1.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,	(0.3f + outline)		 , (0.1f + outline)   , 	0.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,	(0.1f + outline)		 , (0.1f + outline)   , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },			//
+
 {	0.3f + outline ,	-(0.3f + outline)		 , -(0.1f + outline)  , 	1.0f, 1.0f,				1.0f, 1.0f, 0.6f,			//down left
 	0.3f + outline ,	-(0.1f + outline)		 , -(0.1f + outline)  , 	1.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
 	0.3f + outline ,	-(0.1f + outline)		 , -(0.3f + outline)  , 	0.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
-	0.3f + outline ,	-(0.3f + outline)		 , -(0.3f + outline)  , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },			//
+	0.3f + outline ,	-(0.3f + outline)		 , -(0.3f + outline)  , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },
+	{0.3f + outline ,	-0.1f					 ,	0.1f			   , 	1.0f, 1.0f,				1.0f, 1.0f, 0.6f,			//centre
+	0.3f + outline ,	 0.1f					 ,	0.1f			   , 	1.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
+	0.3f + outline ,	 0.1f					 ,	-0.1f			   , 	0.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
+	0.3f + outline ,	-0.1f					 ,	-0.1f			   , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },//
 {	0.3f + outline ,	(0.1f + outline)		 , -(0.1f + outline)  , 	1.0f, 1.0f,				1.0f, 1.0f, 0.6f,			//down right
 	0.3f + outline ,	(0.3f + outline)		 , -(0.1f + outline)  , 	1.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
 	0.3f + outline ,	(0.3f + outline)		 , -(0.3f + outline)  , 	0.0f, 0.0f,				1.0f, 1.0f, 0.6f,			//
 	0.3f + outline ,	(0.1f + outline)		 , -(0.3f + outline)  , 	0.0f, 1.0f,				1.0f, 1.0f, 0.6f, },
 	}//
 },
+	{	//x							//y					//z				//texture coords			//colour						//BACK BLUE FACE
 
-{		//x							//y					//z				//texture coords		//Color							//BACK GREEN FACE
 	{
-	{	-0.1f					  ,	0.1f			  ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//centre
-	 0.1f					  ,	0.1f			  ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	 0.1f					  ,	-0.1f			  ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	-0.1f					  ,	-0.1f			  ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },			//
-{-(0.3f + outline)		  , 0.1f			  ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//left
-   -(0.1f + outline)		  , 0.1f			  ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-   -(0.1f + outline)		  ,-0.1f			  ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-   -(0.3f + outline)		  ,-0.1f			  ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },			//
-{	(0.1f + outline)		  , 0.1f			  ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//right
-	(0.3f + outline)		  , 0.1f			  ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	(0.3f + outline)		  ,-0.1f			  ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	(0.1f + outline)		  ,-0.1f			  ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },
+	{-(0.3f + outline)		  , -(0.1f + outline) , -(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//down left
+	-(0.1f + outline)		  , -(0.1f + outline) , -(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	-(0.1f + outline)		  , -(0.3f + outline) , -(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	-(0.3f + outline)		  , -(0.3f + outline) , -(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f,},					//
+	{-0.1f					  , -(0.1f + outline) , -(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//down
+	 0.1f					  , -(0.1f + outline) , -(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	 0.1f					  , -(0.3f + outline) , -(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	-0.1f					  , -(0.3f + outline) , -(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f,},					//
+	{(0.1f + outline)		  , -(0.1f + outline) , -(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//down right
+	(0.3f + outline)		  , -(0.1f + outline) , -(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	(0.3f + outline)		  , -(0.3f + outline) , -(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	(0.1f + outline)		  , -(0.3f + outline) , -(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f,},	
+	},												
+{													
+	{ -(0.3f + outline)		  , 0.1f			  , -(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//left
+   -(0.1f + outline)		  , 0.1f			  , -(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+   -(0.1f + outline)		  ,-0.1f			  , -(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+   -(0.3f + outline)		  ,-0.1f			  , -(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f,},					//
+	{-0.1f					  ,	0.1f			  , -(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//centre
+	 0.1f					  ,	0.1f			  , -(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	 0.1f					  ,	-0.1f			  , -(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	-0.1f					  ,	-0.1f			  , -(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f,},					//
+	{(0.1f + outline)		  , 0.1f			  , -(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//right
+	(0.3f + outline)		  , 0.1f			  , -(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	(0.3f + outline)		  ,-0.1f			  , -(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	(0.1f + outline)		  ,-0.1f			  , -(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f,},
+},													
+		{											
+	{-(0.3f + outline)		  , (0.3f + outline)  , -(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//up left
+	-(0.1f + outline)		  , (0.3f + outline)  , -(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	-(0.1f + outline)		  , (0.1f + outline)  , -(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	-(0.3f + outline)		  , (0.1f + outline)  , -(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f,},					//
+	{-0.1f					  , (0.3f + outline)  , -(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//up
+	 0.1f					  , (0.3f + outline)  , -(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	 0.1f					  , (0.1f + outline)  , -(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	-0.1f					  , (0.1f + outline)  , -(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f,},					//
+	{(0.1f + outline)		  , (0.3f + outline)  , -(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//up right
+	(0.3f + outline)		  , (0.3f + outline)  , -(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	(0.3f + outline)		  , (0.1f + outline)  , -(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
+	(0.1f + outline)		  , (0.1f + outline)  , -(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f,},
 	},
-	{//
-{	-0.1f					  , -(0.1f + outline) ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//down
-	 0.1f					  , -(0.1f + outline) ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	 0.1f					  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	-0.1f					  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },			//
-{	-0.1f					  , (0.3f + outline)  ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//up
-	 0.1f					  , (0.3f + outline)  ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	 0.1f					  , (0.1f + outline)  ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	-0.1f					  , (0.1f + outline)  ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },				//
-	{	-(0.3f + outline)		  , (0.3f + outline)  ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//up left
-	-(0.1f + outline)		  , (0.3f + outline)  ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	-(0.1f + outline)		  , (0.1f + outline)  ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	-(0.3f + outline)		  , (0.1f + outline)  ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },
-	},
-	{//
-				{(0.1f + outline)		  , (0.3f + outline)  ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//up right
-	(0.3f + outline)		  , (0.3f + outline)  ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	(0.3f + outline)		  , (0.1f + outline)  ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	(0.1f + outline)		  , (0.1f + outline)  ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },
-			//
-	 {-(0.3f + outline)		  , -(0.1f + outline) ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//down left
-	-(0.1f + outline)		  , -(0.1f + outline) ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	-(0.1f + outline)		  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	-(0.3f + outline)		  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },	
-			{(0.1f + outline)		  , -(0.1f + outline) ,-(0.3f + outline) ,	1.0f, 1.0f,				0.49f, 1.0f, 0.39f,					//down right
-	(0.3f + outline)		  , -(0.1f + outline) ,-(0.3f + outline) ,	1.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	(0.3f + outline)		  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 0.0f,				0.49f, 1.0f, 0.39f,					//
-	(0.1f + outline)		  , -(0.3f + outline) ,-(0.3f + outline) ,	0.0f, 1.0f,				0.49f, 1.0f, 0.39f, },	//
-
-	}//
+		//
 },
 {		//x							//y					//z				//texture coords			//colour						//TOP PURPLE FACE
-	{
-		{-0.1f					 ,0.3f + outline ,	0.1f			   , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//centre
-	 0.1f					 ,0.3f + outline ,	0.1f			   , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
-	 0.1f					 ,0.3f + outline ,	-0.1f			   , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
-	-0.1f					 ,0.3f + outline ,	-0.1f			   , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f,		},			//
-{-(0.3f + outline)		 ,0.3f + outline , 0.1f			   , 	1.0f, 1.0f,					0.9f, 0.5f, 1.0f,					//left
+	{	
+	{-(0.3f + outline)		 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//down left
+	-(0.1f + outline)		 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
+	-(0.1f + outline)		 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
+	-(0.3f + outline)		 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f,		},
+		 {-0.1f					 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//down
+	 0.1f					 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
+	 0.1f					 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
+	-0.1f					 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f,		},			//		//
+
+			{(0.1f + outline)		 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//down right
+	(0.3f + outline)		 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
+	(0.3f + outline)		 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
+	(0.1f + outline)		 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f		},//		//
+
+	},
+{	//
+	{-(0.3f + outline)		 ,0.3f + outline , 0.1f			   , 	1.0f, 1.0f,					0.9f, 0.5f, 1.0f,					//left
    -(0.1f + outline)		 ,0.3f + outline , 0.1f			   , 	1.0f, 0.0f,					0.9f, 0.5f, 1.0f,					//
    -(0.1f + outline)		 ,0.3f + outline ,-0.1f			   , 	0.0f, 0.0f,					0.9f, 0.5f, 1.0f,					//
-   -(0.3f + outline)		 ,0.3f + outline ,-0.1f			   , 	0.0f, 1.0f,					0.9f, 0.5f, 1.0f,		},			//
+   -(0.3f + outline)		 ,0.3f + outline ,-0.1f			   , 	0.0f, 1.0f,					0.9f, 0.5f, 1.0f,		},
+			{-0.1f					 ,0.3f + outline ,	0.1f			   , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//centre
+	 0.1f					 ,0.3f + outline ,	0.1f			   , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
+	 0.1f					 ,0.3f + outline ,	-0.1f			   , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
+	-0.1f					 ,0.3f + outline ,	-0.1f			   , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f,		},
 	{	(0.1f + outline)		 ,0.3f + outline , 0.1f			   , 	1.0f, 1.0f,					0.9f, 0.5f, 1.0f,					//right
 	(0.3f + outline)		 ,0.3f + outline , 0.1f			   , 	1.0f, 0.0f,					0.9f, 0.5f, 1.0f,					//
 	(0.3f + outline)		 ,0.3f + outline ,-0.1f			   , 	0.0f, 0.0f,					0.9f, 0.5f, 1.0f,					//
 	(0.1f + outline)		 ,0.3f + outline ,-0.1f			   , 	0.0f, 1.0f,					0.9f, 0.5f, 1.0f,		},
+
 	},
-{	//
-	 {-0.1f					 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//down
-	 0.1f					 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
-	 0.1f					 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
-	-0.1f					 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f,		},			//
-{-0.1f					 ,0.3f + outline , (0.3f + outline)   , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//up
-	 0.1f					 ,0.3f + outline , (0.3f + outline)   , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
-	 0.1f					 ,0.3f + outline , (0.1f + outline)   , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
-	-0.1f					 ,0.3f + outline , (0.1f + outline)   , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f,		},			//
-{	-(0.3f + outline)		 ,0.3f + outline , (0.3f + outline)   , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//up left
+	{//
+		{	-(0.3f + outline)		 ,0.3f + outline , (0.3f + outline)   , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//up left
 	-(0.1f + outline)		 ,0.3f + outline , (0.3f + outline)   , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
 	-(0.1f + outline)		 ,0.3f + outline , (0.1f + outline)   , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
 	-(0.3f + outline)		 ,0.3f + outline , (0.1f + outline)   , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f,		},
-	},
-	{//
+	{-0.1f						,0.3f + outline ,	(0.3f + outline)   , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//up
+	 0.1f					 ,0.3f + outline , (0.3f + outline)   , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
+	 0.1f					 ,0.3f + outline , (0.1f + outline)   , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
+	-0.1f					 ,0.3f + outline , (0.1f + outline)   , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f,		},	//
 	{	(0.1f + outline)		 ,0.3f + outline , (0.3f + outline)   , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//up right
 	(0.3f + outline)		 ,0.3f + outline , (0.3f + outline)   , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
 	(0.3f + outline)		 ,0.3f + outline , (0.1f + outline)   , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
-	(0.1f + outline)		 ,0.3f + outline , (0.1f + outline)   , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f,		},			//
-	{-(0.3f + outline)		 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//down left
-	-(0.1f + outline)		 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
-	-(0.1f + outline)		 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
-	-(0.3f + outline)		 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f,		},			//
-	{(0.1f + outline)		 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 1.0f,				0.9f, 0.5f, 1.0f,					//down right
-	(0.3f + outline)		 ,0.3f + outline , -(0.1f + outline)  , 	1.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
-	(0.3f + outline)		 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 0.0f,				0.9f, 0.5f, 1.0f,					//
-	(0.1f + outline)		 ,0.3f + outline , -(0.3f + outline)  , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f		},
+	(0.1f + outline)		 ,0.3f + outline , (0.1f + outline)   , 	0.0f, 1.0f,				0.9f, 0.5f, 1.0f,		},	
+
+
 	},//
 
 }
@@ -280,7 +287,7 @@ float positions[6][3][3][8*4] = {
 
 unsigned single_cube_indices[6 * 2] = {
 	0			,	1				,	2		   ,
-	2			,	3				,	0		   
+	2			,	3				,	0
 };
 unsigned int cube_indices[6 * 9 * 6] =
 {
@@ -302,24 +309,24 @@ unsigned int cube_indices[6 * 9 * 6] =
 	30			,	31				,	28		   ,
 	32			,	33				,	34		   ,
 	34			,	35				,	32		   ,
-	0	+ (i)		,	1	+ (i)			,	2	+ (i)	   ,
-	2	+ (i)		,	3	+ (i)			,	0	+ (i)	   ,
-	4	+ (i)		,	5	+ (i)			,	6	+ (i)	   ,
-	6	+ (i)		,	7	+ (i)			,	4	+ (i)	   ,
-	8	+ (i)		,	9	+ (i)			,	10	+ (i)	   ,
-	10	+ (i)		,	11	+ (i)			,	8	+ (i)	   ,
-	12	+ (i)		,	13	+ (i)			,	14	+ (i)	   ,
-	14	+ (i)		,	15	+ (i)			,	12	+ (i)	   ,
-	16	+ (i)		,	17	+ (i)			,	18	+ (i)	   ,
-	18	+ (i)		,	19	+ (i)			,	16	+ (i)	   ,
-	20	+ (i)		,	21	+ (i)			,	22	+ (i)	   ,
-	22	+ (i)		,	23	+ (i)			,	20	+ (i)	   ,
-	24	+ (i)		,	25	+ (i)			,	26	+ (i)	   ,
-	26	+ (i)		,	27	+ (i)			,	24	+ (i)	   ,
-	28	+ (i)		,	29	+ (i)			,	30	+ (i)	   ,
-	30	+ (i)		,	31	+ (i)			,	28	+ (i)	   ,
-	32	+ (i)		,	33	+ (i)			,	34	+ (i)	   ,
-	34	+ (i)		,	35	+ (i)			,	32	+ (i)	   ,
+	0 + (i)		,	1 + (i)			,	2 + (i)	   ,
+	2 + (i)		,	3 + (i)			,	0 + (i)	   ,
+	4 + (i)		,	5 + (i)			,	6 + (i)	   ,
+	6 + (i)		,	7 + (i)			,	4 + (i)	   ,
+	8 + (i)		,	9 + (i)			,	10 + (i)	   ,
+	10 + (i)		,	11 + (i)			,	8 + (i)	   ,
+	12 + (i)		,	13 + (i)			,	14 + (i)	   ,
+	14 + (i)		,	15 + (i)			,	12 + (i)	   ,
+	16 + (i)		,	17 + (i)			,	18 + (i)	   ,
+	18 + (i)		,	19 + (i)			,	16 + (i)	   ,
+	20 + (i)		,	21 + (i)			,	22 + (i)	   ,
+	22 + (i)		,	23 + (i)			,	20 + (i)	   ,
+	24 + (i)		,	25 + (i)			,	26 + (i)	   ,
+	26 + (i)		,	27 + (i)			,	24 + (i)	   ,
+	28 + (i)		,	29 + (i)			,	30 + (i)	   ,
+	30 + (i)		,	31 + (i)			,	28 + (i)	   ,
+	32 + (i)		,	33 + (i)			,	34 + (i)	   ,
+	34 + (i)		,	35 + (i)			,	32 + (i)	   ,
 	0 + (i * 2)			,	1 + (i * 2)				,	2 + (i * 2)		   ,
 	2 + (i * 2)			,	3 + (i * 2)				,	0 + (i * 2)		   ,
 	4 + (i * 2)			,	5 + (i * 2)				,	6 + (i * 2)		   ,
@@ -374,24 +381,24 @@ unsigned int cube_indices[6 * 9 * 6] =
 	30 + (i * 4)		,	31 + (i * 4)			,	28 + (i * 4)	   ,
 	32 + (i * 4)		,	33 + (i * 4)			,	34 + (i * 4)	   ,
 	34 + (i * 4)		,	35 + (i * 4)			,	32 + (i * 4)	   ,
-	0 + (i *5)			,	1 + (i *5)				,	2 + (i *5)		   ,
-	2 + (i *5)			,	3 + (i *5)				,	0 + (i *5)		   ,
-	4 + (i *5)			,	5 + (i *5)				,	6 + (i *5)		   ,
-	6 + (i *5)			,	7 + (i *5)				,	4 + (i *5)		   ,
-	8 + (i *5)			,	9 + (i *5)				,	10 + (i *5)		   ,
-	10 + (i *5)			,	11 + (i *5)				,	8 + (i *5)		   ,
-	12 + (i *5)			,	13 + (i *5)				,	14 + (i *5)		   ,
-	14 + (i *5)			,	15 + (i *5)				,	12 + (i *5)		   ,
-	16 + (i *5)			,	17 + (i *5)				,	18 + (i *5)		   ,
-	18 + (i *5)			,	19 + (i *5)				,	16 + (i *5)		   ,
-	20 + (i *5)			,	21 + (i *5)				,	22 + (i *5)		   ,
-	22 + (i *5)			,	23 + (i *5)				,	20 + (i *5)		   ,
-	24 + (i *5)			,	25 + (i *5)				,	26 + (i *5)		   ,
-	26 + (i *5)			,	27 + (i *5)				,	24 + (i *5)		   ,
-	28 + (i *5)			,	29 + (i *5)				,	30 + (i *5)		   ,
-	30 + (i *5)			,	31 + (i *5)				,	28 + (i *5)		   ,
-	32 + (i *5)			,	33 + (i *5)				,	34 + (i *5)		   ,
-	34 + (i *5)			,	35 + (i *5)				,	32 + (i *5)		   ,
+	0 + (i * 5)			,	1 + (i * 5)				,	2 + (i * 5)		   ,
+	2 + (i * 5)			,	3 + (i * 5)				,	0 + (i * 5)		   ,
+	4 + (i * 5)			,	5 + (i * 5)				,	6 + (i * 5)		   ,
+	6 + (i * 5)			,	7 + (i * 5)				,	4 + (i * 5)		   ,
+	8 + (i * 5)			,	9 + (i * 5)				,	10 + (i * 5)		   ,
+	10 + (i * 5)			,	11 + (i * 5)				,	8 + (i * 5)		   ,
+	12 + (i * 5)			,	13 + (i * 5)				,	14 + (i * 5)		   ,
+	14 + (i * 5)			,	15 + (i * 5)				,	12 + (i * 5)		   ,
+	16 + (i * 5)			,	17 + (i * 5)				,	18 + (i * 5)		   ,
+	18 + (i * 5)			,	19 + (i * 5)				,	16 + (i * 5)		   ,
+	20 + (i * 5)			,	21 + (i * 5)				,	22 + (i * 5)		   ,
+	22 + (i * 5)			,	23 + (i * 5)				,	20 + (i * 5)		   ,
+	24 + (i * 5)			,	25 + (i * 5)				,	26 + (i * 5)		   ,
+	26 + (i * 5)			,	27 + (i * 5)				,	24 + (i * 5)		   ,
+	28 + (i * 5)			,	29 + (i * 5)				,	30 + (i * 5)		   ,
+	30 + (i * 5)			,	31 + (i * 5)				,	28 + (i * 5)		   ,
+	32 + (i * 5)			,	33 + (i * 5)				,	34 + (i * 5)		   ,
+	34 + (i * 5)			,	35 + (i * 5)				,	32 + (i * 5)		   ,
 };
 
 

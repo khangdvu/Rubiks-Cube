@@ -12,13 +12,14 @@
 static const float deg2rad = M_PI / 180.0;
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
+bool _viewing = false;
 float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 glm::mat4 rot_mat = glm::mat4(1.0f);
 glm::mat4 camera_rot_mat = glm::mat4(1.0f);
 glm::mat4 identity = glm::mat4(1.0f);
 glm::mat4 trans_cam_mat = glm::scale(identity, glm::vec3(3.0f,3.0f,3.0f));
-
+glm::mat4 trans = glm::mat4(1.0f);
 float rot_angle = 75.0f;
 
 float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
