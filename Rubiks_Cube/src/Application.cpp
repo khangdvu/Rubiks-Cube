@@ -21,10 +21,12 @@
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
+void processRotation(GLFWwindow *window);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 unsigned int is_textured = 0;
-
-
+char col;
+float angle = 0.0f;
+bool inverse = false;
 int main()
 {
 
@@ -115,7 +117,7 @@ int main()
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(data);
 
-		//create VBO, VAO and EBO
+	//create VBO, VAO and EBO
 	unsigned int VBO[6][3][3];
 	unsigned int VAO, EBO;
 
@@ -137,7 +139,7 @@ int main()
 	}
 
 	glGenBuffers(1, &EBO);
-	   	 
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(single_cube_indices), single_cube_indices, GL_STATIC_DRAW);
 
@@ -155,6 +157,7 @@ int main()
 		//input
 		//------
 		processInput(window);
+		processRotation(window);
 
 
 
@@ -184,7 +187,7 @@ int main()
 		//camera
 
 		glm::mat4 view;
-		view = glm::lookAt(cameraPos, cameraFront , cameraUp);
+		view = glm::lookAt(cameraPos, cameraFront, cameraUp);
 
 		// create transformations
 		glm::mat4 model = glm::mat4(1.0f);
@@ -207,43 +210,109 @@ int main()
 		glBindVertexArray(VAO);
 
 		unsigned int piece_rotationLoc = glGetUniformLocation(ourShader.ID, "piece_rotation");
-		glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(piece_rotation));
+		glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(identity));
 		unsigned int camera_rotationLoc = glGetUniformLocation(ourShader.ID, "camera_rotation");
 		glUniformMatrix4fv(camera_rotationLoc, 1, GL_FALSE, glm::value_ptr(camera_rotation));
-		
 
 
-		
-		
+
+
+
 
 
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 3; j++) {
 				for (int k = 0; k < 3; k++) {
 
-				glBindBuffer(GL_ARRAY_BUFFER, VBO[i][j][k]);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8 * 4, positions[i][j][k], GL_DYNAMIC_DRAW);
-				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-				glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-				glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
+					glBindBuffer(GL_ARRAY_BUFFER, VBO[i][j][k]);
+					glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8 * 4, positions[i][j][k], GL_DYNAMIC_DRAW);
+					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+					glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+					glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
 
-				if (is_rotated[i][j][k] == true) {
-					glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(piece_rotation));
-				}
-				if (is_rotated[i][j][k] == false) {
-					//glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(identity));
-					glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(identity));
-				}
-				//draw call
+					if (is_rotated[i][j][k] == true) {
+						if (angle > 90.0f || angle < -90.0f) {
+							is_rotated[i][j][k] = false;
+						}
+						else {
+							glm::mat4 trans = glm::mat4(1.0f);
+							if (!inverse) {
+								if (col == 'b') {
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 0.0f, 1.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle -= 0.007;
+								}
+								else if (col == 'w') {
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(1.0f, 0.0f, 0.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle += 0.007;
+								}
+								else if (col == 'r') {
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 1.0f, 0.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle += 0.007;
+								}
+								else if (col == 'y'){
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(1.0f, 0.0f, 0.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle -= 0.007;
+								}
+								else if (col == 'g') {
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 0.0f, 1.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle += 0.007;
+								}
+
+								else if (col == 'p') {
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 1.0f, 0.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle -= 0.007;
+								}
+							}
+							else {
+								if (col == 'b') {
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 0.0f, 1.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle += 0.007;
+								}
+								else if (col == 'w') {
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(1.0f, 0.0f, 0.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle -= 0.007;
+								}
+								else if (col == 'r') {
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 1.0f, 0.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle -= 0.007;
+								}
+								else if (col == 'y') {
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(1.0f, 0.0f, 0.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle += 0.007;
+								}
+								else if (col == 'g') {
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 0.0f, 1.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle -= 0.007;
+								}
+
+								else if (col == 'p') {
+									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 1.0f, 0.0f));
+									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
+									angle += 0.007;
+								}
+							}
+						}
+					}
+					else if (is_rotated[i][j][k] == false) {
+						glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(identity));
+					}
+					//draw call
 					glDrawElements(GL_TRIANGLES, 3 * 2, GL_UNSIGNED_INT, nullptr);
 				}
 			}
-		}					
-		
 
-
-		
-
+		}
 
 
 
@@ -273,93 +342,127 @@ void processInput(GLFWwindow *window)
 	float rot_inc = 0.001f;
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
-	float cameraSpeed = 2.5f * deltaTime; // adjust accordingly
+
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 		camera_rotation = glm::rotate(camera_rotation, rot_inc, glm::vec3(1.0f, 0.0f, 0.0f));
-		//camera_rot_mat = glm::rotate(identity, glm::degrees(rot_angle), glm::vec3(1.0f, 0.0f, 0.0f));
-		//cameraPos += glm::mat3(camera_rot_mat)	*	cameraSpeed	* cameraPos ;
-		//cameraPos =	glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
-		//cameraUp += glm::mat3(camera_rot_mat)	*	cameraSpeed * cameraUp;
-
-
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
 		camera_rotation = glm::rotate(camera_rotation, -rot_inc, glm::vec3(1.0f, 0.0f, 0.0f));
-		//camera_rot_mat = glm::rotate(identity, glm::degrees(-rot_angle), glm::vec3(1.0f, 0.0f, 0.0f));
-		//cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
-		//cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
-		//cameraUp += glm::mat3(camera_rot_mat)*cameraSpeed * cameraUp;
 
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
 		camera_rotation = glm::rotate(camera_rotation, rot_inc, glm::vec3(0.0f, 1.0f, 0.0f));
-		//camera_rot_mat = glm::rotate(identity, glm::degrees(rot_angle), glm::vec3(0.0f, 1.0f, 0.0f));
-		//cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
-		//cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
-		//cameraUp += glm::mat3(camera_rot_mat)*cameraSpeed * cameraUp;
 
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
 		camera_rotation = glm::rotate(camera_rotation, -rot_inc, glm::vec3(0.0f, 1.0f, 0.0f));
-		cameraPos += glm::mat3(camera_rot_mat)*cameraSpeed* cameraPos;
-		cameraPos = glm::mat3(trans_cam_mat) * glm::normalize(cameraPos);
-		cameraUp += glm::mat3(camera_rot_mat)*cameraSpeed * cameraUp;
-
 	}
-	if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
-		while (!_rotating) {
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_RELEASE)
+			is_textured = (is_textured + 1) % 3;
+	}
+
+
+	if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS) {
+		if (!_rotating) {
+			col = 'b';
+			inverse = false;
 			_rotating = true;
-
-			animate_rotate_yellowi();
-			piece_rotation = identity;
-		}
-		if (glfwGetKey(window, GLFW_KEY_X) == GLFW_RELEASE) {
-			_rotating = false;
-			std::cout << "X Released \n" << std::endl;
-		}
-		//trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
-	} 
-
-	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
-		while (!_rotating) {
-			_rotating = true;
-
-			animate_rotate_whitei();
-			piece_rotation = identity;
-		}
-		if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_RELEASE) {
-			_rotating = false;
-			std::cout << "Z Released \n" << std::endl;
+			animate_rotate_blue();
 		}
 	}
-	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
-		animate_rotate_redi();
-		piece_rotation = identity;
-		piece_rotation = glm::rotate(piece_rotation, glm::degrees(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS) {
+		if (!(_rotating)) {
+			col = 'w';
+			inverse = false;
+			_rotating = true;
+			animate_rotate_white();
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
+		if (!(_rotating)) {
+			col = 'r';
+			inverse = false;
+			_rotating = true;
+			animate_rotate_red();
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
+		if (!_rotating) {
+			col = 'y';
+			inverse = false;
+			_rotating = true;
+			animate_rotate_yellow();
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
+		if (!(_rotating)) {
+			col = 'g';
+			inverse = false;
+			_rotating = true;
+			animate_rotate_green();
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
+		if (!(_rotating)) {
+			col = 'p';
+			inverse = false;
+			_rotating = true;
+			animate_rotate_purple();
+		}
 	}
 }
 
+void processRotation(GLFWwindow *window) {
+	if (angle >= 90.0f || angle <= -90.0f) {
+		set_default();
+		angle = 0.0f;
+		if (col == 'b' && !inverse) {
+			color_rotate_blue();
+		}
+		else if (col == 'b' && inverse) {
+			color_rotate_bluei();
+		}
+		else if (col == 'w' && !inverse) {
+		color_rotate_white();
+		}
+		else if (col == 'w' && inverse) {
+		color_rotate_whitei();
+		}
+		else if (col == 'r' && !inverse) {
+			color_rotate_red();
+		}
+		else if (col == 'r' && inverse) {
+			color_rotate_redi();
+		}
+		else if (col == 'y' && !inverse) {
+			color_rotate_yellow();
+		}
+		else if (col == 'y' && inverse) {
+			color_rotate_yellowi();
+		}
+		else if (col == 'g' && !inverse) {
+			color_rotate_green();
+		}
+		else if (col == 'r' && inverse) {
+			color_rotate_greeni();
+		}
+		else if (col == 'p' && !inverse) {
+			color_rotate_purple();
+		}
+		else if (col == 'p' && inverse) {
+			color_rotate_purplei();
+		}
+
+
+		_rotating = false;
+	}
+}
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
-		is_textured = (is_textured + 1) % 3;
-	}
 
-
-	//if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
-	//
-	//}
-
-	//if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
-	//	animate_rotate_yellowi();
-	//	rot_mat = glm::rotate(identity, glm::radians(90.0f * deg2rad), glm::vec3(1.0f, 0.0f, 0.0f));
-	//     }
-
-	//if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
-	//	rot_mat = glm::rotate(identity, glm::radians(90.0f * deg2rad), glm::vec3(0.0f, 0.0f, 1.0f));
-	//}
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
