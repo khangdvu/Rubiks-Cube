@@ -412,6 +412,64 @@ void processInput(GLFWwindow *window)
 			animate_rotate_purple();
 		}
 	}
+
+		if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+			if (!_rotating) {
+				col = 'b';
+				inverse = true;
+				_rotating = true;
+				animate_rotate_blue();
+			}
+		}
+
+
+		if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+			if (!(_rotating)) {
+				col = 'w';
+				inverse = true;
+				_rotating = true;
+				animate_rotate_white();
+			}
+		}
+
+
+		if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+			if (!(_rotating)) {
+				col = 'r';
+				inverse = true;
+				_rotating = true;
+				animate_rotate_red();
+			}
+		}
+
+
+		if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+			if (!_rotating) {
+				col = 'y';
+				inverse = true;
+				_rotating = true;
+				animate_rotate_yellow();
+			}
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+			if (!(_rotating)) {
+				col = 'g';
+				inverse = true;
+				_rotating = true;
+				animate_rotate_green();
+			}
+		}
+
+
+		if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+			if (!(_rotating)) {
+				col = 'p';
+				inverse = true;
+				_rotating = true;
+				animate_rotate_purple();
+			}
+		}
 }
 
 void processRotation(GLFWwindow *window) {
