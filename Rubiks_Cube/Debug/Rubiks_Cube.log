@@ -1,24 +1,12 @@
 ﻿  Application.cpp
-k:\opengl\rubiks_cube\rubiks_cube\src\cube_vertices.h(286): warning C4305: 'initializing': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(12): warning C4305: 'initializing': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(45): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(49): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(50): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(51): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(52): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-k:\opengl\rubiks_cube\rubiks_cube\src\camera.h(54): warning C4305: 'initializing': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(243): warning C4305: '-=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(248): warning C4305: '+=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(253): warning C4305: '+=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(258): warning C4305: '-=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(263): warning C4305: '+=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(269): warning C4305: '-=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(276): warning C4305: '+=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(281): warning C4305: '-=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(286): warning C4305: '-=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(291): warning C4305: '+=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(296): warning C4305: '-=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(302): warning C4305: '+=': truncation from 'double' to 'float'
-k:\opengl\rubiks_cube\rubiks_cube\src\application.cpp(320): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Rubiks_Cube.vcxproj -> K:\OpenGL\Rubiks_Cube\Debug\Rubiks_Cube.exe
+C:\Users\adagi\Desktop\Projects\RubiksCube\Rubiks_Cube\src\cube_vertices.h(286,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\adagi\Desktop\Projects\RubiksCube\Rubiks_Cube\src\camera.h(12,42): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\adagi\Desktop\Projects\RubiksCube\Rubiks_Cube\src\camera.h(44,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\adagi\Desktop\Projects\RubiksCube\Rubiks_Cube\src\camera.h(45,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\adagi\Desktop\Projects\RubiksCube\Rubiks_Cube\src\camera.h(49,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adagi\Desktop\Projects\RubiksCube\Rubiks_Cube\src\camera.h(50,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\adagi\Desktop\Projects\RubiksCube\Rubiks_Cube\src\camera.h(51,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\adagi\Desktop\Projects\RubiksCube\Rubiks_Cube\src\camera.h(52,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\adagi\Desktop\Projects\RubiksCube\Rubiks_Cube\src\camera.h(54,26): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\adagi\Desktop\Projects\RubiksCube\Rubiks_Cube\src\Application.cpp(321,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Rubiks_Cube.vcxproj -> C:\Users\adagi\Desktop\Projects\RubiksCube\Debug\Rubiks_Cube.exe

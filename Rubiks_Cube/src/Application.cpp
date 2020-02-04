@@ -235,71 +235,72 @@ int main()
 							is_rotated[i][j][k] = false;
 						}
 						else {
+							float rot_inc = 0.1f;
 							glm::mat4 trans = glm::mat4(1.0f);
 							if (!inverse) {
 								if (col == 'b') {
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 0.0f, 1.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle -= 0.007;
+									angle -= rot_inc;
 								}
 								else if (col == 'w') {
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(1.0f, 0.0f, 0.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle += 0.007;
+									angle += rot_inc;
 								}
 								else if (col == 'r') {
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 1.0f, 0.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle += 0.007;
+									angle += rot_inc;
 								}
 								else if (col == 'y'){
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(1.0f, 0.0f, 0.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle -= 0.007;
+									angle -= rot_inc;
 								}
 								else if (col == 'g') {
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 0.0f, 1.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle += 0.007;
+									angle += rot_inc;
 								}
 
 								else if (col == 'p') {
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 1.0f, 0.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle -= 0.007;
+									angle -= rot_inc;
 								}
 							}
 							else {
 								if (col == 'b') {
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 0.0f, 1.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle += 0.007;
+									angle += rot_inc;
 								}
 								else if (col == 'w') {
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(1.0f, 0.0f, 0.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle -= 0.007;
+									angle -= rot_inc;
 								}
 								else if (col == 'r') {
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 1.0f, 0.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle -= 0.007;
+									angle -= rot_inc;
 								}
 								else if (col == 'y') {
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(1.0f, 0.0f, 0.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle += 0.007;
+									angle += rot_inc;
 								}
 								else if (col == 'g') {
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 0.0f, 1.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle -= 0.007;
+									angle -= rot_inc;
 								}
 
 								else if (col == 'p') {
 									trans = glm::rotate(trans, angle*deg2rad, glm::vec3(0.0f, 1.0f, 0.0f));
 									glUniformMatrix4fv(piece_rotationLoc, 1, GL_FALSE, glm::value_ptr(trans));
-									angle += 0.007;
+									angle += rot_inc;
 								}
 							}
 						}
@@ -339,7 +340,7 @@ int main()
 void processInput(GLFWwindow *window)
 {
 	float rot_angle = 10.0f;
-	float rot_inc = 0.001f;
+	float rot_inc = 0.1f;
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
